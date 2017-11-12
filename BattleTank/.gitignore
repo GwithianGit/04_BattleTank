@@ -70,7 +70,11 @@ Saved/*
 
 # Compiled source files for the engine to use
 Intermediate/*
+<<<<<<< HEAD
 Content/StarterContent/
+=======
+Content/StarterContent/*
+>>>>>>> master
 
 # Cache files for the editor to use
 DerivedDataCache/*
