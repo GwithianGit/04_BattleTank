@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TankAimingComponent.h"
-
+#include "TankBarrel.h"
 
 // Sets default values for this component's properties
 UTankAimingComponent::UTankAimingComponent()
@@ -13,28 +13,9 @@ UTankAimingComponent::UTankAimingComponent()
 	// ...
 }
 
-void UTankAimingComponent::SetBarrelReference(UStaticMeshComponent* BarrelToSet)
+void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet)
 {
 	Barrel = BarrelToSet;
-}
-
-// Called when the game starts
-void UTankAimingComponent::BeginPlay()
-{
-	Super::BeginPlay();
-
-	// ...
-	
-}
-
-
-// Called every frame
-void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	
-	// ...
 }
 
 void UTankAimingComponent::AimAt(FVector OutHitLocation, float LaunchSpeed)
@@ -43,25 +24,31 @@ void UTankAimingComponent::AimAt(FVector OutHitLocation, float LaunchSpeed)
 
 	FVector OutLaunchVelocity;
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
-
-	if (UGameplayStatics::SuggestProjectileVelocity(
-			this,
-			OutLaunchVelocity,
-			StartLocation,
-			OutHitLocation,
-			LaunchSpeed,
-			false,
-			0,
-			0,
-			ESuggestProjVelocityTraceOption::DoNotTrace
-			)	
-		)
+	bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity
+	(
+		this,
+		OutLaunchVelocity,
+		StartLocation,
+		OutHitLocation,
+		LaunchSpeed,
+		ESuggestProjVelocityTraceOption::DoNotTrace
+		);
+	if (bHaveAimSolution)
 	{
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
-		auto TankName = GetOwner()->GetName();
-		UE_LOG(LogTemp, Warning, TEXT("%s firing At %s at %f"), *TankName, *AimDirection.ToString(), LaunchSpeed);
+		MoveBarrelTowards(AimDirection);
 	}
-
 	// If no solution found do nothing
-	return;
+}
+
+void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
+{
+	// Take in the OutHitLocation & SuggestedProjectileVelocity
+
+	// Work out difference between current barrel rotation and aim direction
+	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
+	auto AimAsRotator = AimDirection.Rotation();
+	auto DeltaRotator = AimAsRotator - BarrelRotator;
+
+	Barrel->Elevate(5); //TODO remove magic number
 }
