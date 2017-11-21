@@ -1,7 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TankAimingComponent.h"
-#include "Engine/World.h"
 #include "TankBarrel.h"
 #include "TankTurret.h"
 
@@ -50,13 +49,6 @@ void UTankAimingComponent::AimAt(FVector OutHitLocation, float LaunchSpeed)
 	{
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimDirection);
-		auto Time = GetWorld()->GetTimeSeconds();
-		UE_LOG(LogTemp, Warning, TEXT("%f: Aim Solution Found"), Time);
-	}
-	else
-	{
-		auto Time = GetWorld()->GetTimeSeconds();
-		UE_LOG(LogTemp, Warning, TEXT("%f: Aim Solution Not Found"), Time);
 	}
 	// If no solution do nothing
 }
