@@ -4,7 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "Components/StaticMeshComponent.h"
+#include "Components/PrimitiveComponent.h"
 #include "GameFramework/PlayerController.h"
+#include "GameFramework/Actor.h"
 #include "Engine/World.h"
 #include "TankTrack.generated.h"
 /**
@@ -20,5 +22,7 @@ public:
 	UFUNCTION(BluePrintCallable, Category = Input)
 	void SetThrottle(float Throttle);
 	
-	//TODO clamp actual throttle value so player can't over-drive'
+	// Max force per track, in Newtons
+	UPROPERTY(EditDefaultsOnly)
+	float TrackMaxDrivingForce = 40000000.0; // Assume 40 tonne tank, and 1g acceleration
 };
