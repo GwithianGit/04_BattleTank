@@ -22,6 +22,7 @@ public:
 
 	//void SetTrackReference(UTankTrack* TrackToSet);
 
+	UFUNCTION(BlueprintCallable, Category = Input)
 	void IntendMoveForward(float Throw);
 	
 private:

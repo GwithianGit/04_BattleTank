@@ -16,7 +16,6 @@ UTankMovementComponent::UTankMovementComponent()
 void UTankMovementComponent::IntendMoveForward(float Throw)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Intend move forward throw: %f"),Throw);
-
 }
 
 //void UTankMovementComponent::SetTrackReference(UTankTrack* TrackToSet)

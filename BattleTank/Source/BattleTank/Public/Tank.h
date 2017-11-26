@@ -3,12 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "TankAimingComponent.h"
-#include "TankMovementComponent.h"
 #include "GameFramework/Pawn.h"
 #include "Engine/World.h"
 #include "UObject/UObjectGlobals.h"
-#include "TankBarrel.h"
 #include "Projectile.h"
 #include "Tank.generated.h"
 /**
