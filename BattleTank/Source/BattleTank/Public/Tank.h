@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "TankAimingComponent.h"
+#include "TankMovementComponent.h"
 #include "GameFramework/Pawn.h"
 #include "Engine/World.h"
 #include "UObject/UObjectGlobals.h"
@@ -14,6 +15,8 @@
 *
 */
 class UTankAimingComponent;
+class UTankMovementComponent;
+
 UCLASS()
 class BATTLETANK_API ATank : public APawn
 {
@@ -27,6 +30,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Setup)
 	void SetTurretReference(UTankTurret* TurretToSet);
 
+	//UFUNCTION(BlueprintCallable, Category = Setup)
+	//void SetTrackReference(UTankTrack* TrackToSet);
+
 	void AimAt(FVector OutHitLocation);
 
 	UFUNCTION(BlueprintCallable, Category = Firing)
@@ -34,6 +40,9 @@ public:
 
 protected:
 	UTankAimingComponent* TankAimingComponent = nullptr;
+
+	UPROPERTY(BlueprintReadOnly)
+	UTankMovementComponent* TankMovementComponent = nullptr;
 
 private:
 	// Sets default values for this pawn's properties
