@@ -13,13 +13,24 @@ UTankMovementComponent::UTankMovementComponent()
 	// ...
 }
 
-void UTankMovementComponent::IntendMoveForward(float Throw)
+void UTankMovementComponent::Initialise(UTankTrack* LeftTrackToSet, UTankTrack* RightTrackToSet)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Intend move forward throw: %f"),Throw);
+
 }
 
-//void UTankMovementComponent::SetTrackReference(UTankTrack* TrackToSet)
-//{
-//	if (!TrackToSet) { return; }
-//	Track = TrackToSet;
-//}
+void UTankMovementComponent::IntendMoveForward(float Throw)
+{
+	if (!LeftTrack || !RightTrack) { return; }
+	LeftTrack->SetThrottle(Throw);
+	RightTrack->SetThrottle(Throw);
+	// TODO prevent double speed due to dual control use
+}
+
+void UTankMovementComponent::IntendTurnRight(float Throw)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Intend turn right: %f"), Throw); //TODO Remove Log
+	if (!LeftTrack || !RightTrack) { return; }
+	LeftTrack->SetThrottle(Throw);
+	RightTrack->SetThrottle(-Throw);
+	// TODO prevent double speed due to dual control use
+}
