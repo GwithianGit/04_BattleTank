@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/NavMovementComponent.h"
 #include "Engine/World.h"
+#include "GameFramework/Actor.h"
 #include "TankMovementComponent.generated.h"
 
 /**
@@ -29,6 +30,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = Input)
 	void IntendTurnRight(float Throw);
+
+	//TODO check best protection of this method
+	void RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed) override;
 
 private:
 	UTankTrack* LeftTrack = nullptr;
