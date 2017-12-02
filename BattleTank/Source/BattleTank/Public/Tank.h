@@ -5,8 +5,9 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "Engine/World.h"
-#include "UObject/UObjectGlobals.h"
+#include "TankBarrel.h"
 #include "Projectile.h"
+#include "UObject/UObjectGlobals.h"
 #include "Tank.generated.h"
 /**
 *
@@ -20,16 +21,6 @@ class BATTLETANK_API ATank : public APawn
 	GENERATED_BODY()
 
 public:
-
-	UFUNCTION(BlueprintCallable, Category = "Setup")
-	void SetBarrelReference(UTankBarrel* BarrelToSet);
-
-	UFUNCTION(BlueprintCallable, Category = "Setup")
-	void SetTurretReference(UTankTurret* TurretToSet);
-
-	//UFUNCTION(BlueprintCallable, Category = "Setup")
-	//void SetTrackReference(UTankTrack* TrackToSet);
-
 	void AimAt(FVector OutHitLocation);
 
 	UFUNCTION(BlueprintCallable, Category = "Firing")
@@ -42,15 +33,12 @@ protected:
 	UPROPERTY(BlueprintReadOnly)
 	UTankMovementComponent* TankMovementComponent = nullptr;
 
-private:
 	// Sets default values for this pawn's properties
 	ATank();
 
+private:
 	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	//virtual void BeginPlay() override;
 		
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	TSubclassOf<AProjectile> ProjectileBlueprint;
@@ -62,7 +50,7 @@ private:
 	float ReloadTimeInSeconds = 3;
 	
 	// local barrel reference for spawning projectile
-	UTankBarrel* Barrel = nullptr;
+	UTankBarrel* Barrel = nullptr; //TODO Remove
 	
-	double LastFireTime = 0.;
+	double LastFireTime = 0;
 };
