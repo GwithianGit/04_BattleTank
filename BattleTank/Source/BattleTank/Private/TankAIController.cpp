@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TankAIController.h"
+#include "Tank.h"
+//Depends on movement component via pathfinding system
 
 void ATankAIController::BeginPlay()
 {
