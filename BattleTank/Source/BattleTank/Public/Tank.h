@@ -12,7 +12,8 @@
 /**
 *
 */
-class UTankAimingComponent;
+class UTankBarrel;
+class AProjectile;
 
 UCLASS()
 class BATTLETANK_API ATank : public APawn
@@ -20,20 +21,13 @@ class BATTLETANK_API ATank : public APawn
 	GENERATED_BODY()
 
 public:
-	void AimAt(FVector OutHitLocation);
-
 	UFUNCTION(BlueprintCallable, Category = "Firing")
 	void Fire();
 
-protected:
-	UPROPERTY(BlueprintReadOnly)
-	UTankAimingComponent* TankAimingComponent = nullptr;
-	
+private:
 	// Sets default values for this pawn's properties
 	ATank();
 
-private:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 		
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
