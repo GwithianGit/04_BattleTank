@@ -8,14 +8,8 @@ void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 	auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
-	if (ensure(AimingComponent))
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Player Controller can't find aim at Begin Play"))
-	}
-	else
-	{
-		FoundAimingComponent(AimingComponent);
-	}
+	if (!ensure(AimingComponent)) { return; }
+	FoundAimingComponent(AimingComponent);
 }
 
 void ATankPlayerController::Tick(float DeltaTime)
@@ -55,7 +49,6 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) cons
 		// Line trace along that LookDirection, and see what we hit (up to max range)
 		GetLookVectorHitLocation(LookDirection, OutHitLocation);
 	}
-
 	return true;
 }
 
