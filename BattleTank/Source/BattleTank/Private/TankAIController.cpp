@@ -17,16 +17,13 @@ void ATankAIController::Tick(float DeltaTime)
 	auto PlayerTank = GetWorld()->GetFirstPlayerController()->GetPawn();
 	auto ControlledTank = GetPawn();
 
-	if (!ensure(PlayerTank && ControlledTank)) { return; }
-
 	// Move towards the player
 	MoveToActor(PlayerTank, AcceptanceRadius);
 
 	// Aim towards the player
 	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 	AimingComponent->AimAt(PlayerTank->GetActorLocation());
-				
-	// TODO Fix firing
-	// ControlledTank->Fire(); 
+
+	AimingComponent->Fire(); 
 }
 

@@ -6,6 +6,8 @@
 #include "Components/ActorComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/Actor.h"
+#include "TankBarrel.h"
+#include "Projectile.h"
 #include "TankAimingComponent.generated.h"
 
 // Enum for aiming state
@@ -21,6 +23,7 @@ enum class EFiringState : uint8
 // Forward Declaration
 class UTankBarrel;
 class UTankTurret;
+class AProjectile;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BATTLETANK_API UTankAimingComponent : public UActorComponent
@@ -30,9 +33,12 @@ class BATTLETANK_API UTankAimingComponent : public UActorComponent
 public:	
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
+	
+	UFUNCTION(BlueprintCallable, Category = "Firing")
+	void Fire();
 
 	void AimAt(FVector OutHitLocation);
-
+	
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "State")
 	EFiringState FiringState = EFiringState::Locked;
@@ -48,4 +54,12 @@ private:
 	float LaunchSpeed = 4000;
 	
 	void MoveBarrelTowards(FVector AimDirection);
+
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	TSubclassOf<AProjectile> ProjectileBlueprint;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	float ReloadTimeInSeconds = 3;
+	
+	double LastFireTime = 0;
 };
