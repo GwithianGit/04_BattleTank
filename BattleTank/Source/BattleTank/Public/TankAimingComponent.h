@@ -7,6 +7,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/Actor.h"
 #include "TankBarrel.h"
+#include "TankTurret.h"
 #include "Projectile.h"
 #include "TankAimingComponent.generated.h"
 
@@ -51,6 +52,8 @@ private:
 
 	virtual void BeginPlay() override;
 
+	FVector AimDirection;
+
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
 
@@ -58,6 +61,8 @@ private:
 	float LaunchSpeed = 4000;
 	
 	void MoveBarrelTowards(FVector AimDirection);
+
+	bool IsBarrelMoving();
 
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	TSubclassOf<AProjectile> ProjectileBlueprint;

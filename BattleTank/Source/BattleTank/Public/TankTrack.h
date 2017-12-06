@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/StaticMeshComponent.h"
+#include "GameFramework/NavMovementComponent.h"
 #include "Components/PrimitiveComponent.h"
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/Actor.h"
@@ -25,4 +26,10 @@ public:
 	// Max force per track, in Newtons
 	UPROPERTY(EditDefaultsOnly)
 	float TrackMaxDrivingForce = 40000000.0; // Assume 40 tonne tank, and 1g acceleration
+	
+private:
+	UTankTrack();
+
+	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
+
 };
