@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "UObject/UObjectGlobals.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "PhysicsEngine/RadialForceComponent.h"
+#include "Components/PrimitiveComponent.h"
 #include "Particles/ParticleSystemComponent.h"
 #include "Projectile.generated.h"
 
@@ -18,23 +20,30 @@ public:
 	// Sets default values for this actor's properties
 	AProjectile();
 
+	void LaunchProjectile(float Speed);
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 private:
+	UFUNCTION()
+	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor,
+			UPrimitiveComponent* OtherComponent, FVector NormalImpulse,
+			const FHitResult& Hit);
+
 	UProjectileMovementComponent* ProjectileMovement = nullptr;
 	
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UStaticMeshComponent* CollisionMesh = nullptr;
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UParticleSystemComponent* LaunchBlast = nullptr;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UParticleSystemComponent* ImpactBlast = nullptr;
 
-	void LaunchProjectile(float Speed);
-	
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	URadialForceComponent* ExplosionForce = nullptr;
+
 };
