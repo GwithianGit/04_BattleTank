@@ -6,7 +6,9 @@
 #include "GameFramework/Actor.h"
 #include "UObject/UObjectGlobals.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "Particles/ParticleSystemComponent.h"
 #include "Projectile.generated.h"
+
 UCLASS()
 class BATTLETANK_API AProjectile : public AActor
 {
@@ -23,6 +25,12 @@ protected:
 private:
 	UProjectileMovementComponent* ProjectileMovement = nullptr;
 	
+	UPROPERTY(VisibleAnywhere)
+	UStaticMeshComponent* CollisionMesh = nullptr;
+
+	UPROPERTY(VisibleAnywhere)
+	UParticleSystemComponent* LaunchBlast = nullptr;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

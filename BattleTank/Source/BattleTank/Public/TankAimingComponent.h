@@ -43,14 +43,11 @@ public:
 
 	EFiringState GetFiringState() const;
 
-	int GetAmmo() const;
+	int32 GetAmmo() const;
 	
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "State")
 	EFiringState FiringState = EFiringState::Reloading;
-
-	UPROPERTY(BlueprintReadOnly, Category = "Firing")
-	int Ammo = 10;
 
 private:
 	// Sets default values for this component's properties
@@ -64,16 +61,19 @@ private:
 
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
-
-	UPROPERTY(EditDefaultsOnly, Category = "Firing")
-	float LaunchSpeed = 4000;
-	
+		
 	void MoveBarrelTowards(FVector AimDirection);
 
 	bool IsBarrelMoving();
 
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	TSubclassOf<AProjectile> ProjectileBlueprint;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	float LaunchSpeed = 4000;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	int32 Ammo = 10;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float ReloadTimeInSeconds = 3;
